@@ -1,0 +1,15 @@
+.element-template__like {
+  margin: 22px 0 0;
+  width: 22px;
+  height: 19px;
+  background-image: url(../../../images/elements__like.svg);
+  border: 0px;
+  background-color: inherit;
+  cursor: pointer;
+  transition: opacity .3s linear;
+  background-repeat: no-repeat;
+}
+
+.element-template__like:hover {
+  opacity: .5;
+}

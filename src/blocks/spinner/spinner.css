@@ -1,0 +1,6 @@
+.spinner {
+  background: url('../../images/spinner.gif');
+  background-repeat: no-repeat;
+  grid-column-start: 2;
+  grid-column-end: 3;
+}
