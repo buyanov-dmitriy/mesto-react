@@ -5,13 +5,13 @@ import Card from './Card';
 import Spinner from './Spinner';
 
 function Main(props) {
-  const [[userName, userDescription, userAvatar], setUserInfo] = useState(['Загрузка...', 'Загрузка...', '']);
+  const [{userName, userDescription, userAvatar}, setUserInfo] = useState({userName: 'Загрузка...', userDescription: 'Загрузка...', userAvatar: ''});
   const [cards, setCards] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     api.getUserInformationAndCards()
       .then(([userInformation, cardsFromServer]) => {
-        setUserInfo([userInformation.name, userInformation.about, userInformation.avatar]);
+        setUserInfo({userName: userInformation.name, userDescription: userInformation.about, userAvatar: userInformation.avatar});
         setCards(cardsFromServer);
         setIsLoading(false);
       })
@@ -33,9 +33,9 @@ function Main(props) {
       </section>
       <section className="elements page__content">
         {isLoading
-          ? <Spinner />
+          ? (<Spinner />)
           : cards.map(currentCard => {
-            return <Card onCardClick={props.onCardClick} key={currentCard._id} card={currentCard} />
+            return (<Card onCardClick={props.onCardClick} key={currentCard._id} card={currentCard} />)
           })}
       </section>
     </main>
