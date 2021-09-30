@@ -28,7 +28,7 @@ function App() {
     if (isEditAvatarPopupOpen) {handleEditAvatarClick()};
     if (isEditProfilePopupOpen) {handleEditProfileClick()};
     if (isAddPlacePopupOpen) {handleAddPlaceClick()};
-    if (selectedCard !== '') {setSelectedCard({name: '', link: ''})};
+    if (selectedCard.link !== '') {setSelectedCard({name: '', link: ''})};
   }
   return (
     <div className='page'>
