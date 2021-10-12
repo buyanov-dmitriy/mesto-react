@@ -1,41 +1,33 @@
-import { useEffect } from 'react';
-import { useState } from 'react/cjs/react.development';
-import api from '../utils/api';
+import { useContext } from 'react';
 import Card from './Card';
 import Spinner from './Spinner';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function Main(props) {
-  const [{userName, userDescription, userAvatar}, setUserInfo] = useState({userName: 'Загрузка...', userDescription: 'Загрузка...', userAvatar: ''});
-  const [cards, setCards] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  useEffect(() => {
-    api.getUserInformationAndCards()
-      .then(([userInformation, cardsFromServer]) => {
-        setUserInfo({userName: userInformation.name, userDescription: userInformation.about, userAvatar: userInformation.avatar});
-        setCards(cardsFromServer);
-        setIsLoading(false);
-      })
-      .catch(error => {
-        console.log(error);
-      })
-  }, []);
+  const currentUser = useContext(CurrentUserContext);
+
   return (
     <main className='content'>
       <section className="profile page__content">
-        <img className="profile__avatar" src={userAvatar} alt="Аватар пользователя" />
+        <img className="profile__avatar" src={currentUser.avatar} alt="Аватар пользователя" />
         <button type="button" onClick={props.onEditAvatar} className="profile__avatar-overlay"></button>
         <div className="profile__info">
-          <h1 className="profile__name">{userName}</h1>
+          <h1 className="profile__name">{currentUser.name}</h1>
           <button type="button" onClick={props.onEditProfile} className="popup-open profile__edit-button"></button>
-          <p className="profile__description">{userDescription}</p>
+          <p className="profile__description">{currentUser.about}</p>
         </div>
         <button type="button" onClick={props.onAddPlace} className="popup-open profile__add-button"></button>
       </section>
       <section className="elements page__content">
-        {isLoading
+      {(props.isLoading)
           ? (<Spinner />)
-          : cards.map(currentCard => {
-            return (<Card onCardClick={props.onCardClick} key={currentCard._id} card={currentCard} />)
+          : (props.cards).map(currentCard => {
+            return (<Card
+              onCardDelete={props.onCardDelete}
+              onCardLike={props.onCardLike}
+              onCardClick={props.onCardClick}
+              key={currentCard._id}
+              card={currentCard} />)
           })}
       </section>
     </main>

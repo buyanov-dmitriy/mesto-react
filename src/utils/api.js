@@ -28,10 +28,6 @@ class Api {
     }));
   }
 
-  getUserInformationAndCards() {
-    return Promise.all([this.getUserInformation(), this.getCards()]);
-  }
-
   editProfile(newUserInfo) {
     return this._contactTheServer(fetch(`${this._url}/users/me`, {
       headers: this._headers,
@@ -55,8 +51,8 @@ class Api {
     }));
   }
 
-  putLike(card, isNotLiked) {
-    return this._contactTheServer(fetch(`${this._url}/cards/likes/${card._id}`, {
+  putLike(cardID, isNotLiked) {
+    return this._contactTheServer(fetch(`${this._url}/cards/likes/${cardID}`, {
       headers: this._headers,
       method: isNotLiked ? 'PUT': 'DELETE',
     }));
