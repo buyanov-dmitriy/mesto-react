@@ -22,9 +22,11 @@ function EditProfilePopup(props) {
   }
 
   useEffect(() => {
-    setName(currentUser.name);
-    setDescription(currentUser.about);
-  }, [currentUser]);
+    if (props.isOpen) {
+      setName(currentUser.name);
+      setDescription(currentUser.about);
+    }
+  }, [currentUser, props.isOpen]);
 
   return (
     <PopupWithForm onSubmit={handleSubmit} name='edit-author' title='Редактировать профиль' isOpen={props.isOpen} onClose={props.onClose} inputValue="Сохранить">
